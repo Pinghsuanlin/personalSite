@@ -10,3 +10,7 @@
 * No specification bias
 * Errors are normally distributed
 
+### Caveat:
+Simpler models are generally preferred to more complex models because they are **less likely to overfit** the data. 
+
+Usually data contains a number of factor variables. In order to model factor variables, they **have to be dummy coded**. Fortunately, `glm` and `lm` functions automatically dummy code factor variables and then run the dummy variables in the model. 
