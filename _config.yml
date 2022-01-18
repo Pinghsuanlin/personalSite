@@ -5,6 +5,6 @@ profile: profile.jpg
 defaults:
   -
     scope:
-      path: "/projects/*
+      path: "/projects/*"
     values:
       layout: "post"
