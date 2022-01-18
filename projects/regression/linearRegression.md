@@ -61,7 +61,7 @@ ggplot(data=train,aes(x=age,y=earn))+
 
 __Estimate Regression Equation:__
 
-![Equation](estimateRegEqu.png)
+![Equation](estimateRegEqu.PNG)
 
 ```
 model1 = lm(earn~age,data=train)

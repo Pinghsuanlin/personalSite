@@ -1,7 +1,7 @@
 Below, you would find some of my work with R, Python langague. These notebooks could also be found at [github/pinghsuanlin](https://github.com/Pinghsuanlin/).
 ## **Supervised Machine Learning**
 
-1. [Regression](projects/Regression.md): Linear Regression, Logistic Regression
+1. [Regression](projects/regression/regressionAssumption.md): [LinearRegression](projects/regression/linearRegression.md), [LogisticRegression](projects/regression/logisticRegression.md)
 
 3. [DecisionTree](projects/decisionTree.md): Classification Tree, Regression Tree, Advanced Tree
 
@@ -22,7 +22,7 @@ Below, you would find some of my work with R, Python langague. These notebooks c
 
 1. [Introduction](projects/exploratoryDataAnalysis.md)
 
-2. [DataVisualization](projects/dataVisualization.md)
+2. [DataVisualization](projects/datavisual/dataVisualization.md)
 
 ## Featured Projects
 * [NobelPrize](projects/NobelPrize/NobelPrize.md)
