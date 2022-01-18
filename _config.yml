@@ -2,3 +2,9 @@ theme: jekyll-theme-minimal
 title: Sherie's website
 description: My personal website to check projects of data scientist
 profile: profile.jpg
+defaults:
+  -
+    scope:
+      path: "/projects/*
+    values:
+      layout: "post"
