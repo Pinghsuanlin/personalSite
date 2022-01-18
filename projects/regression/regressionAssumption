@@ -1,0 +1,12 @@
+## Regression Assumptions:
+* Linear in parameters
+* Mean of residuals is zero
+* Homoscedasticity
+* No autocorrelation
+* IVs and residuals are not correlated
+* n> number of parameters
+* Variance of IVs > 0
+* No perfect multicollinearity
+* No specification bias
+* Errors are normally distributed
+
