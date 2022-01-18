@@ -16,5 +16,11 @@ split = sample.split(data$sold,SplitRatio = 0.7)
 train = data[split,]
 test = data[!split,]
 ```
+## How Strong is the relationship between variables?
+* 2Log(Likelihood), Pseudo R2, AIC(= 2k- 2Log)
 
-
+## Accuracy of Predictions
+* Accuracy or hit ratio (compared to baseline)
+* Specificity
+* Sensitivity
+* Area Under the Curve (AUC)
