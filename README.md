@@ -3,7 +3,7 @@ Below, you would find some of my work with R, Python langague. These notebooks c
 
 1. [Regression](projects/regression/regressionAssumption.md): [LinearRegression](projects/regression/linearRegression.md), [LogisticRegression](projects/regression/logisticRegression.md)
 
-2. [FeatureSelection](projects/featureSelection.md)
+2. [FeatureSelection](projects/featureSelection/featureSelection.md)
 
 3. [DecisionTree](projects/decisionTree.md): Classification Tree, Regression Tree, Advanced Tree
 
