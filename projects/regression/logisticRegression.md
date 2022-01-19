@@ -13,11 +13,14 @@ Generally,
 | Higher specificity  | Lower specificity  |
 | Lower sensitivity  | Higher sensitivity  |
 
-|   | Actual Yes | Acutal No |
-| ------------- | ------------- | ------------- |
-| Predicted Yes  | True Positive  | False Positive (Type I Error; alpha)  |
-| Predicted No  | False Negative (Type II Error; beta)  | True Negative (power = 1- beta) |
-|   | Sensitivity = TP/(TP+FN)  | Specificity = TN/(TN+FP)  |
+
+|              | Actual Yes | Acutal No |
+| :---         |     :---:      |          ---: |
+| Predicted Yes| True Positive     | False Positive (Type I Error; alpha)    |
+| Predicted No    | False Negative (Type II Error; beta)       | True Negative (power = 1- beta)      |
+| git diff     | Sensitivity = TP/(TP+FN)       | Specificity = TN/(TN+FP)  |
+
+
 * Cost of false negatives can be accounted for by the Specificity and cost of false negatives by the Sensitivity. 
 * Accuracy (Hit Ratio)= (TN+TP) / (TN+TP+FN+FP)
 * Precision = TP / (Predicted Positive) 
@@ -94,7 +97,7 @@ ct = table(sold = train$sold,
            predictions = as.numeric(pred>0.5))
 ct
 ```
-![ct](ct.png)
+![ct](ct.PNG)
 
 ```
 accuracy = sum(ct[1,1],ct[2,2])/nrow(train); accuracy   #Output: 0.8050652
@@ -115,13 +118,13 @@ ROCRpred = prediction(pred,test$sold)
 ROCRperf = performance(ROCRpred,"tpr","fpr")
 plot(ROCRperf)
 ```
-![ROC](ROC.png)
+![ROC](ROC.PNG)
 ```
 #Color coded and annotated
 plot(ROCRperf,colorize=TRUE,print.cutoffs.at=seq(0,1,0.2),text.adj=c(-0.3,2),
      xlab="1 - Specificity",ylab="Sensitivity") 
 ```
-![coloredROC](ROC2.png)
+![coloredROC](ROC2.PNG)
 ```
 as.numeric(performance(ROCRpred,"auc")@y.values) # auc measure
 ```
@@ -133,5 +136,5 @@ ROCRpred = prediction(baselinePred,test$sold)
 ROCRperf = performance(ROCRpred,"tpr","fpr")
 plot(ROCRperf,xlab="1 - Specificity",ylab="Sensitivity") # relabeled axes
 ```
-![baseROC](baseline.png)
+![baseROC](baseline.PNG)
 

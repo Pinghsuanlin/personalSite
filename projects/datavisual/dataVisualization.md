@@ -33,7 +33,7 @@ ggplot(data=mpg,mapping = aes(x=hwy))+
 ggplot(data=mpg,mapping = aes(x=hwy,fill=factor(year)))+
   geom_histogram() 
   ```
-![hisPng](histogram.png)
+![hisPng](histogram.PNG)
 
 
 
@@ -42,7 +42,7 @@ ggplot(data=mpg,mapping = aes(x=hwy,fill=factor(year)))+
 ggplot(data=mpg,mapping = aes(x=hwy,color=factor(year)))+
   geom_freqpoly(size=1.2)
 ```
-![fpPng](frequency.png)
+![fpPng](frequency.PNG)
 
 **_Boxplot: useful for comparing distributions and spotting outliers._**
 ```
@@ -53,7 +53,7 @@ ggplot(data=mpg,aes(x=factor(year),y=hwy))+
   geom_boxplot(outlier.color='red', fill='cadetblue',color='sienna')+
   geom_text(data=mpg[mpg$hwy>quantile(mpg$hwy,0.99),], aes(label=manufacturer),nudge_x = 0.2)
 ```
-![boxPlotPng](boxplot.png) 
+![boxPlotPng](boxplot.PNG) 
 
 **_QQplot: useful to examine if the data is normally distributed._** 
 * If the data are normally distributed the points in the plot will cluster around the diagonal running from bottom left to top right. 
@@ -63,7 +63,7 @@ ggplot(data=mpg, aes(sample=hwy))+
   geom_qq_line()+
   geom_qq()
   ```
-![qqPng](qq.png)
+![qqPng](qq.PNG)
 
 
 
@@ -77,7 +77,7 @@ ggplot(data=mpg,aes(x=factor(drv),fill=factor(year),y=hwy))+
 
 #'position' as 'dodge' is easier to spot the difference between years, as compared to stack over.
 ```
-![barPng](barchart.png)
+![barPng](barchart.PNG)
 
 **_Scatterplot: used for two numeric variables._**
 
@@ -85,7 +85,7 @@ ggplot(data=mpg,aes(x=factor(drv),fill=factor(year),y=hwy))+
 ggplot(data=mpg,aes(x=displ,y=cty,color=factor(year)))+
   geom_point()
   ```
-![scatterPng](scatter.png)
+![scatterPng](scatter.PNG)
 
 **_Line Graph: useful for spotting trend_**
 
@@ -94,7 +94,7 @@ ggplot(data=mpg,aes(x=displ,y=cty,color=factor(year)))+
   geom_point()+
   geom_smooth(method='lm',se=F,size=1.2)
   ```
-![linePng](linegraph.png)
+![linePng](linegraph.PNG)
 
 **_Grid_**
 
@@ -104,7 +104,7 @@ ggplot(data=mpg,aes(x=displ,y=hwy))+
   facet_grid(cyl~year)
   ```
 
-![gridPng](grid.png)
+![gridPng](grid.PNG)
 
 
 

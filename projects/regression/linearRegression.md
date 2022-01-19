@@ -74,10 +74,10 @@ data.frame(earn = train$earn[100:109], prediction = pred[100:109])
 
 summary(model1)
 ```
-![model1](lrmodel1.png)
+![model1](lrmodel1.PNG)
 
 __R-Squared__
-![R](r-squared.png)
+![R](r-squared.PNG)
 * R-squared interpret how well the regression model fits the observed data. Generally, _a higher r-squared indicates a better fit for the model_
 
 ```
