@@ -1,3 +1,5 @@
+# Data Modeling
+
 Splitting the Sample
 The dataset may be split into a train and test sample using random approaches or non-random approaches.
 

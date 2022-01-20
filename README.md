@@ -9,12 +9,8 @@ Below, you would find some of my work with R, Python langague. These notebooks c
 
 4. Supervised Machine Learning (SVM)
 
-
-
 ## **Data Modeling**
-
-1. 
-
+1. [Framework](projects/dataModeling.md)
 
 ## **Data Maniuplation**
 

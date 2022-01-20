@@ -1,3 +1,4 @@
+# Data Visualization
 _Data Visualization is a great approach to understand your data and present your results._
 
 In R, we use ggplot2 library to visualize our data. The template for graphic in ggplot2 is:
