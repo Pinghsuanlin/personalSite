@@ -5,9 +5,9 @@ Below, you would find some of my work with R, Python langague. These notebooks c
 
 2. [FeatureSelection](projects/featureSelection/featureSelection.md)
 
-3. [DecisionTree](projects/decisionTree.md): Classification Tree, Regression Tree, Advanced Tree
+3. [DecisionTree](projects/decisionTree.md): Classification Tree, Regression Tree, [AdvancedTree](projects/advancedTree)
 
-4. Supervised Machine Learning (SVM)
+4. Supervised Machine Learning [(SVM)](projects/SVM)
 
 ## **Data Modeling**
 1. [Framework](projects/dataModeling.md)
