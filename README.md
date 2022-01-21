@@ -22,5 +22,8 @@ Below, you would find some of my work with R, Python langague. These notebooks c
 
 2. [DataVisualization](projects/datavisual/dataVisualization.md)
 
-## Featured Projects
-* [NobelPrize](projects/NobelPrize/NobelPrize.md)
+## Featured Projects in Python
+* [HistoryOfNobelPrize](projects/NobelPrize/NobelPrize.md)
+* [HistoryOfScalaLanguage](projects/GithubScala/Scala.md)
+* [GrowthAndRetentionInGooglePlay](projects/Android/Android.md)
+* [FilmLengthInNetflix](projects/Netflix/Netflix.md)
