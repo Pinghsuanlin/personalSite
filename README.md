@@ -5,7 +5,7 @@ Below, you would find some of my work with R, Python langague. These notebooks c
 
 2. [FeatureSelection](projects/featureSelection/featureSelection.md)
 
-3. [DecisionTree](projects/decisionTree.md): Classification Tree, Regression Tree, [AdvancedTree](projects/advancedTree)
+3. [DecisionTree](projects/decisionTree.md): Classification Tree, Regression Tree, [AdvancedTree](projects/advancedTree/advancedTree.md)
 
 4. Supervised Machine Learning [(SVM)](projects/SVM)
 
@@ -14,7 +14,7 @@ Below, you would find some of my work with R, Python langague. These notebooks c
 
 ## **Data Maniuplation**
 
-1. [DataTidying](dataTidying): Data Cleaning, Data Transformation
+1. [DataTidying](projects/dataTidying.md): Data Cleaning, Data Transformation
 
 ## **Exploartory Data Analysis**
 
