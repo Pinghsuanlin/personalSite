@@ -98,14 +98,69 @@ rmse_cvTree = sqrt(mean((pred-test$earn)^2)); rmse_cvTree
 * **Boosting: Frow a series of trees sequentially, each tree using informatino from the previously grown trees**
 
 # Bagging
-It to create multiple copies of the original training data set using the bootstrap, fit a separate decision tree to each copy, and then combinine all of the trees in order to create a single predictive model.
+*An ensemble model that aggregates predictions from tree models fitted to a set of bootstrapped samples.*
+
+It's to create multiple copies of the original training data set using the bootstrap, fit a separate decision tree to each copy, and then combine all of the trees in order to create a single predictive model.
 ![bagging](bagging.PNG)
 * Combining models by averaging (metric outcome) or the majority (non metric outcome)
 * We don't prune tree constructed in bagging, since it will average out. Averaging predictions reduce variance while unchanging bias
+* Many packages can be implemented, including ipred, randomForest,adabag, bagEarth, treeBag, bagFDA
+```
+#randomForest library: mtry = number of ALL predictors
+library(randomForest)
+set.seed(1031)
+bag = randomForest(Balance~.,data=train,mtry = ncol(train)-1,ntree=1000)
+pred = predict(bag,newdata=test)
+rmse_bag = sqrt(mean((pred-test$earn)^2)); rmse_bag
+```
+```
+#ipred library: Need to specify the number of bootstrapped samples to fit
+library(ipred)
+set.seed(1031) 
+bag = bagging(Balance~.,
+              data = train, 
+              nbagg = 1000)
+
+pred_train = predict(bag)
+rmse_train_bag_ipred = sqrt(mean((pred_train - train$Balance)^2)); rmse_train_bag_ipred
+
+pred = predict(bag, newdata = test)
+rmse_bag_ipred = sqrt(mean((pred - test$Balance)^2)); rmse_bag_ipred
+```
 
 # Random Forests
-Compared to bagged tree, random forests de-correlate the trees, which reduce the vairance when average them out.
-* The number of predictors considered at each split (m) is about to the square root of the total number of predictors (p). If m=p, it's the same as bagging
+*Unlike bagged tree, random forests **use a random subset of features** for each bootstrapped tree to  de-correlate the trees, which reduce the vairance when average them out.*
+
+* For classification problems, the number of predictors considered at each **split (m) is about to the square root of the total number of predictors (p)**. For regression problems, this is p/3. If m=p, it's the same as bagging
+ and for classification problems, sqrt(p)
+
+```
+library(randomForest)
+trControl = trainControl(method = 'cv', number = 5)
+tuneGrid = expand.grid(mtry = 1:ncol(train)-1)
+set.seed(1031)
+forest_cv = train(Balance~., 
+                  data = train, 
+                  method = 'rf',  #method can be in 'ranger'
+                  trControl = trControl, 
+                  tuneGrid = tuneGrid, 
+                  ntree = 1000)
+forest_cv$bestTune$mtry
+```
+ranger package: A faster implementation of Random Forests, particularly suited for high dimensional data
+
+```
+library(ranger)
+set.seed(1031)
+forest_ranger = ranger(Balance~.,
+                       data = train, 
+                       num.trees = 1000)
+pred_train = predict(forest_ranger, data = train, num.trees = 1000)
+rmse_train_forest_ranger = sqrt(mean((pred_train$predictions - train$Balance)^2)); rmse_train_forest_ranger
+
+pred = predict(forest_ranger, data = test, num.trees = 1000)
+rmse_forest_ranger = sqrt(mean((pred$predictions - test$Balance)^2)); rmse_forest_ranger
+```
 
 # Boosting
 Gradiant Boosting Machine:
@@ -113,3 +168,54 @@ Gradiant Boosting Machine:
 2. shrinkage: Control the rate at which boosting learns, typically is 0.01 or 0.001
 3. interaction.depth: Control the complexity (interaction order) of the boosted ensemble
 * Prone to overfitting, and sensitive to extreme values
+
+## gbm
+```
+library(caret)
+set.seed(1031)
+trControl = trainControl(method="cv",number=5)
+tuneGrid = expand.grid(n.trees = 500, 
+                       interaction.depth = c(1,2,3),
+                       shrinkage = (1:100)*0.001,
+                       n.minobsinnode=c(5,10,15))
+
+garbage = capture.output(cvModel <- train(Balance~., data=train, method="gbm", trControl=trControl, tuneGrid=tuneGrid))
+
+set.seed(1031)
+cvboost = gbm(Balance~.,
+              data=train,
+              distribution="gaussian",
+              n.trees=500,
+              interaction.depth=cvModel$bestTune$interaction.depth,
+              shrinkage=cvModel$bestTune$shrinkage,
+              n.minobsinnode = cvModel$bestTune$n.minobsinnode)
+
+pred_train = predict(cvboost, n.trees=500)
+rmse_train_cv_boost = sqrt(mean((pred_train - train$Balance)^2)); rmse_train_cv_boost
+
+pred = predict(cvboost, newdata = test, n.trees = 500)
+rmse_cv_boost = sqrt(mean((pred - test$Balance)^2)); rmse_cv_boost
+```
+## xgboost
+XGBoost is an optimized distributed gradient boosting library designed to be highly efficient, flexible and portable. But while using xgboost, all factor class variables need to be dummy coded and fed into the model as a matrix. To do this, we will dummy code using library(vtreat).
+```
+library(xgboost)
+xgboost = xgboost(data=as.matrix(train_input), 
+                  label = train$Balance,
+                  nrounds=10000,
+                  verbose = 0,
+                  early_stopping_rounds = 100)
+xgboost$best_iteration
+```
+```
+plot(xgboost$evaluation_log)
+```
+![plot](plot.PNG)
+```
+pred_train = predict(xgboost, 
+               newdata=as.matrix(train_input))
+rmse_train_xgboost = sqrt(mean((pred_train - train$Balance)^2)); rmse_train_xgboost
+pred = predict(xgboost, 
+               newdata=as.matrix(test_input))
+rmse_xgboost = sqrt(mean((pred - test$Balance)^2)); rmse_xgboost
+```
