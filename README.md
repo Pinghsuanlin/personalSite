@@ -9,6 +9,13 @@ Below, you would find some of my work with R, Python langague. These notebooks c
 
 4. Supervised Machine Learning [(SVM)](projects/SVM)
 
+
+## **Unsupervised Machine Learning**
+1. [Clustering](): To examine unlabeled data
+2. [TextMining]()
+3. Natural Language Processing [(NLP)]()
+
+
 ## **Data Modeling**
 1. [Framework](projects/dataModeling.md)
 

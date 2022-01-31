@@ -1,0 +1,2 @@
+# Cluster Analysis
+Classify objects or cases into relatively homogeneous groups called clusters. Objects in each cluster tend to be similar to each other and dissimilar to objects in the other clusters.
