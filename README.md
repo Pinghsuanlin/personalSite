@@ -7,13 +7,13 @@ Below, you would find some of my work with R, Python langague. These notebooks c
 
 3. [DecisionTree](projects/decisionTree.md): Classification Tree, Regression Tree, [AdvancedTree](projects/advancedTree/advancedTree.md)
 
-4. Supervised Machine Learning [(SVM)](projects/SVM)
+4. Supervised Machine Learning [(SVM)]
 
 
 ## **Unsupervised Machine Learning**
-1. [Clustering](): To examine unlabeled data
-2. [TextMining]()
-3. Natural Language Processing [(NLP)]()
+1. [Clustering]: To examine unlabeled data
+2. [TextMining]
+3. Natural Language Processing [(NLP)]
 
 
 ## **Data Modeling**
