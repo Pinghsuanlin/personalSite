@@ -60,12 +60,14 @@ pred = predict(maximalTree,newdata=test)
 rmse_maximalTree = sqrt(mean((pred-test$earn)^2)); rmse_maximalTree
 ```
 ### Tuning tree
+
 ```
 #tree tuned with 10-fold cross-validation
 trControl = trainControl(method='cv',number = 10)
 ```
 * `caret` framework makes the tuning process easier but can only tune using `cp`. (To use other hyperparameters, we can write loops to go through the grid.) 
 * Next, we will specify the range of hyperparameter values for cp through experience or trial-and-error approach. For grid-search, it's better to begin with wide intervals then narrower intervals. Eg. seq(0,0.4,0.001) to seq(0,0.1,0.0001)
+
 ```
 #Cross-validation for 100 different cp
 tuneGrid = expand.grid(.cp = seq(from = 0.001,to = 0.1,by = 0.001))
@@ -87,8 +89,9 @@ ggplot(data=cvModel$results, aes(x=cp, y=RMSE))+
   theme_bw()+
   ggtitle(label=paste('Lowest RMSE is at a cp of ',cvModel$bestTune$cp))
 ```
+
+Now we use the optimal value of cp and evaluate Tune model on Test sample
 ```
-#Now we use the optimal value of cp and evaluate Tune model on Test sample
 cvTree = rpart(Balance~.,data=train,cp = cvModel$bestTune$cp)
 pred = predict(cvTree,newdata=test)
 rmse_cvTree = sqrt(mean((pred-test$earn)^2)); rmse_cvTree
@@ -107,6 +110,7 @@ It's to create multiple copies of the original training data set using the boots
 * Combining models by averaging (metric outcome) or the majority (non metric outcome)
 * We don't prune tree constructed in bagging, since it will average out. Averaging predictions reduce variance while unchanging bias
 * Many packages can be implemented, including ipred, randomForest,adabag, bagEarth, treeBag, bagFDA
+
 ```
 #randomForest library: mtry = number of ALL predictors
 library(randomForest)
@@ -115,6 +119,7 @@ bag = randomForest(Balance~.,data=train,mtry = ncol(train)-1,ntree=1000)
 pred = predict(bag,newdata=test)
 rmse_bag = sqrt(mean((pred-test$earn)^2)); rmse_bag
 ```
+
 ```
 #ipred library: Need to specify the number of bootstrapped samples to fit
 library(ipred)
@@ -149,8 +154,8 @@ forest_cv = train(Balance~.,
                   ntree = 1000)
 forest_cv$bestTune$mtry
 ```
-ranger package: A faster implementation of Random Forests, particularly suited for high dimensional data
 
+ranger package: A faster implementation of Random Forests, particularly suited for high dimensional data
 ```
 library(ranger)
 set.seed(1031)
@@ -182,7 +187,9 @@ tuneGrid = expand.grid(n.trees = 500,
                        n.minobsinnode=c(5,10,15))
 
 garbage = capture.output(cvModel <- train(Balance~., data=train, method="gbm", trControl=trControl, tuneGrid=tuneGrid))
+```
 
+```
 set.seed(1031)
 cvboost = gbm(Balance~.,
               data=train,
@@ -198,8 +205,10 @@ rmse_train_cv_boost = sqrt(mean((pred_train - train$Balance)^2)); rmse_train_cv_
 pred = predict(cvboost, newdata = test, n.trees = 500)
 rmse_cv_boost = sqrt(mean((pred - test$Balance)^2)); rmse_cv_boost
 ```
+
 ## xgboost
 XGBoost is an optimized distributed gradient boosting library designed to be highly efficient, flexible and portable. But while using xgboost, all factor class variables need to be dummy coded and fed into the model as a matrix. To do this, we will dummy code using library(vtreat).
+
 ```
 library(xgboost)
 xgboost = xgboost(data=as.matrix(train_input), 
@@ -209,10 +218,12 @@ xgboost = xgboost(data=as.matrix(train_input),
                   early_stopping_rounds = 100)
 xgboost$best_iteration
 ```
+
 ```
 plot(xgboost$evaluation_log)
 ```
 ![plot](plot.PNG)
+
 ```
 pred_train = predict(xgboost, 
                newdata=as.matrix(train_input))
