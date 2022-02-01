@@ -1,4 +1,5 @@
 # Advanced Tree: Tuning Model Hyperparameters, Cross-Validation, Ensemble Models(Bagging, Random Forest, Boosting)
+
 | Cons of Tree  | Solutions |
 | ------------- | ------------- |
 | Easy to overfit train data  | Cross-Validation to optimize complexity from picking good model hyperparameters  |
@@ -50,6 +51,7 @@ tree = rpart(Balance~.,data = train, method = 'anova')
 pred_train = predict(tree)
 rmse_train_tree = sqrt(mean((pred_train - train$Balance)^2)); rmse_train_tree
 ```
+
 ```
 #Maximal tree
 maximalTree = rpart(Balance~.,data=train,control=rpart.control(cp=0))
