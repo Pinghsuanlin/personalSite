@@ -237,7 +237,7 @@ if (outputEl) {{
 }}
 
                         })                };                });            </script>        </div>
-
+```
 
 ## 5. Distribution of app ratings
 <p>After having witnessed the market share for each category of apps, let's see how all these apps perform on an average. App ratings (on a scale of 1 to 5) impact the discoverability, conversion of apps as well as the company's overall brand image. Ratings are a key performance indicator of an app.</p>
