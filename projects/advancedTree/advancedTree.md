@@ -1,6 +1,6 @@
 # Advanced Tree: Tuning Model Hyperparameters, Cross-Validation, Ensemble Models(Bagging, Random Forest, Boosting)
 | Cons of Tree  | Solutions |
-| :-------------: | ------------- |
+| ------------- | ------------- |
 | Easy to overfit train data  | Cross-Validation to optimize complexity from picking good model hyperparameters  |
 | Lower predictive accuracy  | Aggregating many decision trees |
 
