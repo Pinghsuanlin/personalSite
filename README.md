@@ -11,7 +11,7 @@ Below, you would find some of my work with R, Python langague. These notebooks c
 
 
 ## **Unsupervised Machine Learning**
-1. [Clustering](projects/Clustering.md)
+1. [Clustering](projects/Clustering/Clustering.md)
 2. TextMining
 3. Natural Language Processing (NLP)
 
