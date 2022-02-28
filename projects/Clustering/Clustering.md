@@ -73,6 +73,7 @@ clusters = hclust(d = d,method='ward.D2')
 plot(clusters)
 ```
 ![Dendrogram](Dendrogram.png)
+
 ```
 #Goodness of Fit: Cophenetic correlation coefficient (CPC)
 cor(cophenetic(clusters),d)
@@ -84,6 +85,7 @@ plot(clusters)
 rect.hclust(tree=clusters,k = 4,border = 'tomato')
 ```
 ![4solution](4solution.png)
+
 ```
 library(dendextend)
 plot(color_branches(as.dendrogram(clusters),k = 4,groupLabels = F))
@@ -141,6 +143,7 @@ ggplot(data=data.frame(cluster = 1:10,within_ss),aes(x=cluster,y=within_ss))+
   scale_x_continuous(breaks=seq(1,10,1))
 ``` 
 ![withinss](withinss.png)
+
 * Ideal number of cluster is at 2 from the elbow point
 
 #### **Ratio plot**
@@ -219,6 +222,7 @@ ggplot(data=data.frame(cluster = 1:10,bic = mclust_bic),aes(x=cluster,y=bic))+
   scale_x_continuous(breaks=seq(1,10,1))
 ```
 ![bic](bic.png)
+
 The six-cluster solution has the lowest bic but catering to so many segments may not be practical. Also both hierarchical and k-means favored a 4-cluster solution, so we will go for 4-cluster solution.
 ```
 m_clusters = Mclust(data = data_cluster,G = 4)
