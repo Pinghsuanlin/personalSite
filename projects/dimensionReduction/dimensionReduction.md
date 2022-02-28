@@ -31,7 +31,7 @@ KMO(r = cor(df))
 ```
 scree(cor(df),factors = T, pc=T)
 ```
-![screePlot](screePlot.png)
+![screePlot](screePlot.PNG)
 Sudden change occurred between 2 and 3. 
 
 #### All factors with Eigen-value > 1 are selected.
@@ -44,7 +44,7 @@ Also, from the scree plot above, 1, 2 are greater than 1, so we take 2 factors.
 ```
 fa.parallel(df,fa='fa',fm = 'pa')
 ```
-![parallelAnalysis](pa.png)
+![parallelAnalysis](pa.PNG)
 Again, we move forward with two factors.
 
 #### Total Variance Explained: The total variance explained by factors should be greater than 70%.
@@ -126,7 +126,7 @@ pca_facto = PCA(train,graph = F)
 library(factoextra)
 fviz_eig(pca_facto,ncp=11,addlabels = T)
 ```
-![screePlotPCA](screePlotpca.png)
+![screePlotPCA](screePlotpca.PNG)
 
 ```
 #Eigen Value > 1 will be selected

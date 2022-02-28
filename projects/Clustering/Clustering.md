@@ -72,7 +72,7 @@ clusters = hclust(d = d,method='ward.D2')
 #Interpret Results: Examine Dendrogram
 plot(clusters)
 ```
-![Dendrogram](Dendrogram.png)
+![Dendrogram](Dendrogram.PNG)
 
 ```
 #Goodness of Fit: Cophenetic correlation coefficient (CPC)
@@ -84,13 +84,13 @@ Four cluster solution: The solution indicates three major segments and one niche
 plot(clusters)
 rect.hclust(tree=clusters,k = 4,border = 'tomato')
 ```
-![4solution](4solution.png)
+![4solution](4solution.PNG)
 
 ```
 library(dendextend)
 plot(color_branches(as.dendrogram(clusters),k = 4,groupLabels = F))
 ```
-![highlight](highlight.png)
+![highlight](highlight.PNG)
 
 Most of the respondents seem to be clustering into three groups with the fourth cluster containing a very small number of respondents.
 ```
@@ -107,7 +107,7 @@ temp = data.frame(cluster = factor(h_segments),
 ggplot(temp,aes(x=factor1,y=factor2,col=cluster))+
   geom_point()
 ```
-![visualize](visualize.png)
+![visualize](visualize.PNG)
 
 Using clusplot to run a principal components analysis
 ```
@@ -116,7 +116,7 @@ clusplot(data_cluster,
          h_segments,
          color=T,shade=T,labels=4,lines=0,main='Hierarchical Cluster Plot')
 ```
-![clusplot](clusplot.png)
+![clusplot](clusplot.PNG)
 
 ### k-means
 Arbitrarily placing centroids in the data and then iterating from that point to the final solution, and since it computes a mean deviation, k-means clustering relies on Euclidean distance and only used for numerical data
@@ -142,7 +142,7 @@ ggplot(data=data.frame(cluster = 1:10,within_ss),aes(x=cluster,y=within_ss))+
   geom_point()+
   scale_x_continuous(breaks=seq(1,10,1))
 ``` 
-![withinss](withinss.png)
+![withinss](withinss.PNG)
 
 * Ideal number of cluster is at 2 from the elbow point
 
@@ -221,7 +221,7 @@ ggplot(data=data.frame(cluster = 1:10,bic = mclust_bic),aes(x=cluster,y=bic))+
   geom_point()+
   scale_x_continuous(breaks=seq(1,10,1))
 ```
-![bic](bic.png)
+![bic](bic.PNG)
 
 The six-cluster solution has the lowest bic but catering to so many segments may not be practical. Also both hierarchical and k-means favored a 4-cluster solution, so we will go for 4-cluster solution.
 ```
