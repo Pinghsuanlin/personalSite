@@ -1,4 +1,4 @@
-Below, you would find some of my work with R, Python langague. These notebooks could also be found at [github/pinghsuanlin](https://github.com/Pinghsuanlin/).
+You will find some of my work with R, Python langague below. These notebooks could also be found at [github/pinghsuanlin](https://github.com/Pinghsuanlin/).
 ## **Supervised Machine Learning**
 
 1. [Regression](projects/regression/regressionAssumption.md): [LinearRegression](projects/regression/linearRegression.md), [LogisticRegression](projects/regression/logisticRegression.md)
@@ -12,8 +12,11 @@ Below, you would find some of my work with R, Python langague. These notebooks c
 
 ## **Unsupervised Machine Learning**
 1. [Clustering](projects/Clustering/Clustering.md)
+
 2. [DimensionReduction](projects/dimensionReduction/dimensionReduction.md): Factor Analysis, Principal Components Analysis
-3. [TextMining](projects/textMining/textMining.md)
+
+3. [TextMining](projects/textMining/textMining.md) : [TF-IDF](projects/textMining/tfidf.md), [Spacy&Vader](projects/textMining/spacyVader.md)
+
 4. Natural Language Processing (NLP)
 
 
@@ -32,6 +35,9 @@ Below, you would find some of my work with R, Python langague. These notebooks c
 
 ## Featured Projects in Python
 * [HistoryOfNobelPrize](projects/NobelPrize/NobelPrize.md)
+
 * [HistoryOfScalaLanguage](projects/GithubScala/Scala.md)
+
 * [GrowthAndRetentionInGooglePlay](projects/Android/Android.md)
+
 * [FilmLengthInNetflix](projects/Netflix/Netflix.md)

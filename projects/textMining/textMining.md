@@ -105,7 +105,10 @@ df %>%
 ### 4. Categorize tokens using a lexicon
 *Lexicon: Dictionary of words*
 
-(1) Binary (positive/negative)
+* The bing and nrc emotion lexicons **classify a word** based on the presence or absence of an emotion or valence. 
+* The afinn lexicon **scores each word based on the extent** to which it is positive or negative. 
+
+#### (1) Binary (positive/negative)
 
 `tidytext:: get_sentiments('bing')`
 `dplyr: inner_join()`
@@ -115,11 +118,87 @@ inner_join(get_sentiments( 'bing' )) %>%
 group_by (sentiment)
 ```
 
-(2) Emotion
+#### (2) Emotion: Categorize words based on emotion reflected 
 
-(3) Sentiment score
+Method 1: Get Lexicon from tidytext in interactive mode (i.e., console or script, not markdown)
+```
+tidytext::get_sentiments('nrc') 
+```
 
-(4) Text Filters
+Method 2: Get Lexicon posted on github
+
+```
+nrc = read.table(file = 'https://raw.githubusercontent.com/pseudorational/data/master/nrc_lexicon.txt',
+                 header = F,
+                 col.names = c('word','sentiment','num'),
+                 sep = '\t',
+                 stringsAsFactors = F)
+nrc = nrc[nrc$num!=0,]
+nrc$num = NULL
+```
+
+```
+#Emotions and Ratings
+library(tidyr)
+df%>%
+  group_by(id, rating)%>%
+  unnest_tokens(output = word, input = review)%>%
+  inner_join(nrc)%>%
+  group_by(id,sentiment,rating)%>%
+  count()%>%
+  group_by(id,sentiment, rating)%>%
+  pivot_wider(names_from = sentiment,values_from = n)%>%
+  mutate_at(.vars = 3:12, .funs = function(x) replace_na(x,0))%>%
+  ungroup()%>%
+  pivot_longer(cols = anticipation: sadness, names_to = 'sentiment',values_to = 'n')%>%
+  group_by(sentiment, rating)%>%
+  summarize(n = mean(n))%>%
+  ggplot(aes(x=rating,y=n,fill=rating))+
+  geom_col()+
+  facet_wrap(~sentiment)+
+  guides(fill=F)+
+  coord_flip()+
+  theme_bw()
+  ```
+![emoRatings](emotionsRating.PNG)
+
+From the graph, we see that 'positive' emotion is not skewed to certain ranged of ratings. This could indicate that nrc sentiment on a single word may not be that effective as to include the context.
+
+#### (3) Sentiment score: You will know the "intensity" of being positive/negative
+```
+afinn = tidytext:: get_sentiments('afinn') 
+```
+**Approach 1- Jockers:**
+Scores for words range from -1 to +1, which will give a more compacted distribution of data
+
+```
+library(lexicon)
+df %>%
+  select(id,review)%>%
+  group_by(id)%>%
+  unnest_tokens(output=word,input=review)%>%
+  inner_join(key_sentiment_jockers)%>%
+  summarize(reviewSentiment = mean(value))%>%
+  ungroup()%>%
+  ggplot(aes(x=reviewSentiment,fill=reviewSentiment>0))+
+  geom_histogram(binwidth = 0.02)+
+  scale_x_continuous(breaks=seq(-1,1,0.2))+
+  scale_fill_manual(values=c('tomato','seagreen'))+
+  guides(fill=F)+
+  theme_wsj()
+  ```
+![jockers](jockers.PNG)
+
+#### (4) Text Filters: Use profanity to filter out words that don’t add additional or useful information.
+```
+df %>%
+  group_by(id)%>%
+  unnest_tokens(output = word, input = review)%>%
+  ungroup()%>%
+  select(id, word)%>%
+  anti_join(data.frame(word = c(profanity_banned, profanity_racist)), 
+                       by = c('word'='word'))
+```
 
 
-### 5. Summarize results: Topic Modeling, Latent Semantic Analysis, Text Clustering and Document Clusterin
+### 5. Summarize results: Topic Modeling, Latent Semantic Analysis, Text Clustering and Document Clustering
