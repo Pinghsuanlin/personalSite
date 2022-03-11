@@ -41,3 +41,5 @@ You will find some of my work with R, Python langague below. These notebooks cou
 * [GrowthAndRetentionInGooglePlay](projects/Android/Android.md)
 
 * [FilmLengthInNetflix](projects/Netflix/Netflix.md)
+
+* [DiscoveryofHandwashing](projects/handwashing/handwashing.md)
