@@ -99,30 +99,119 @@ seasonal_naive_model = snaive(train,h=42)
 drift_model = rwf(train,h=42,drift = T)
 ```
 
-
-
 ## Exponential Smoothing Models: Recent observations weighted more than distant observations
 
 ### 1. Simple Exponential Smoothing: 
 Forecasts are calculated using weighted averages. Suitable for frocasting data with no clear trend or seasonal pattern.
+```
+ses_model = ses(train,h = 42)
+
+autoplot(train)+
+  autolayer(ses_model,series = "Simple Exponential Smoothing",PI = F, size=1.1)+
+  autolayer(test)
+```
 
 ### 2. Holt's Method: 
 Extends simple exponential smoothing to allow the forecasting of data with a trend.
-
+```
+holt_model = holt(train,h=42)
+```
 
 ### 3. Holt's Method with Damping: 
 Forecasts generally display a constant trend indefinitely into the future.
+```
+holt_damped_model = holt(train,h=42,damped = T)
+```
 
 ### 4. Holt-Winter's Seasonal Method: 
 To caputre seasonality.
 
 - Additive Method: Used when seasonal variations are roughly constant.
+```
+hw_additive = hw(train,h=42,seasonal = 'additive', damped=T)
+```
 - Multiplicative Method: Used when seasonal variations change in proportion to the level of the series.
+```
+hw_multiplicative = hw(train,h=42,seasonal = 'multiplicative', damped=T)
+```
+### ETS Models: 9 exponential smoothing methods by considering variations of trend (none, additive, additive damped) and seasonal components (non, additive, multiplicative)
 
-### Stationary Process = Box-Cox Transformation (Stabilize Variance) + Remove seasonality and trend (Differencing)
+When only the time-series is specified, and all other arguments are left at their default values, then ets() will automatically select the best model based on AICc.
+
+1) Errors are Additive, ETS: AAA
+
+Trend is Additive and Seasonal component is Additive
+```
+ets_aaa = ets(train,model = 'AAA')
+
+#Examine the residuals
+checkresiduals(ets_aaa)
+```
+![aaa](AAA.PNG)
+```
+ets_aaa_forecast = forecast(ets_aaa,h=42)
+
+#accuracy with test 
+accuracy(ets_aaa_forecast,x = ausbeer)
+
+autoplot(train)+
+  autolayer(ets_aaa_forecast,series="ETS - AAA",PI=F)+
+  autolayer(test)
+```
+![aaa_visaul](AAA_visual.PNG)
+
+2) ETS: Automatic Selection
+```
+ets_auto = ets(train)
+summary(ets_auto)
+
+ets_auto_forecast = forecast(ets_auto,h=42)
+
+accuracy(ets_auto_forecast,x = ausbeer)
+```
+
+**_While Exponential Smoothing models are based on a description of trend and seasonality in the data, ARIMA models aim to describe autocorrelations in the data._**
 
 ### AutoRegressive Integrated Moving Average (ARIMA):
 ARIMA is estimated using maximum likelihood estimation. Use Information Criteria (AIC, BIC, AICc) to select the best values of p and q, but not for selecting the appropriate order of differencing (d)
+
+### Stationary Process = Box-Cox Transformation (Stabilize Variance) + Remove seasonality and trend (Differencing)
+- ARMA process assumes the data is stationary.
+- Stationary Process has constant mean, variance and covariance.
+```
+#Stabilize Variance
+a10_const_var = BoxCox(a10,lambda = BoxCox.lambda(a10))
+
+#Remove Seasonality
+a10_const_var_no_seasonality = diff(x = a10_const_var,lag = 12) 
+
+#See the changes
+dat = cbind(original = a10,
+      const_var = a10_const_var,
+      no_seasonality = a10_const_var_no_seasonality)
+library(ggthemes)
+autoplot(dat,facets=T,colour = T)+ylab('')+xlab('Year')+theme_bw()
+```
+![stationaryProcess](stationaryProcess.PNG)
+
+Number of difference:
+```
+ndiffs(a10_const_var_no_seasonality)
+#Returning 0 means you don't need differencing
+```
+*nsdiffs(): number of seasonal differencing*
+
+```
+#ACF plots to see if the data is stationary
+ggAcf(a10_const_var_no_seasonality)
+```
+![ACFPlot](ACFplot.PNG)
+Much of the line is within decks, no differencing needed. But the spike may cause error in the future.
+
+```
+kpss.test(a10_const_var_no_seasonality)
+```
+![kpss](KPSS.PNG)
 
 #### AutoRegressive (AR): Forecast a variable using a linear combination of past values of the variable
 ![AR](AR.PNG)
@@ -131,6 +220,12 @@ ARIMA is estimated using maximum likelihood estimation. Use Information Criteria
 #### Non-Seasonal ARIMA + seasonal terms = Seasonal ARIMA = ARIMA(p, d, q) (P, D, Q) m
 - (P, D, Q): Seasonal component 
 - m: Number of periods per season
+
+### ARIMA - Automatic Model Selection
+```
+model_auto = auto.arima(y = train,d = 1,D = 1,stepwise = F,approximation = F)
+```
+
 
 
 
