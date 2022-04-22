@@ -2,7 +2,7 @@
 *Dimension reduction groups variables, while clustering groups observations. In use when there's a large set of correlated variabels (ie. dealing with multicollinearity)*
 
 ## Factor Analysis: 
-*To understand the dataset by identify latent variables or constructs*
+*To understand the dataset by identifying latent variables or constructs*
 
 Steps:
 ### 1. Suitability for Factor Analysis: Scatter Plot, Correlations Matrix (only for linear relationship), Bartlett's Test of Sphericity, KMO's Measure of Samping Adequcay (MSA)
