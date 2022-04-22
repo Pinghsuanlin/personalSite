@@ -4,11 +4,13 @@
 ### Steps:
 #### 1.Select variables for analysis
 
-Consider relevance of variables chosen, since inclusion of related or dependent variables may overweight one certain dimension.
+Consider relevance of variables chosen, since inclusion of related or dependent variables may **overweight** one certain dimension.
 
 #### 2.Prepare data
 
-Clustering algorithms prefer all variables to be **of the same class and have missing values imputed** (usually we replace variables of the same dimension with a representative variable) to avoid the entire row of data to be ignored for analysis. **Standardize variables for distance-based clustering methods**, since scale of the variable (e.g., seconds vs minutes) affects the weight assigned to the variable.
+(1) Clustering algorithms prefer all variables to be **of the same class and have missing values imputed** (usually we replace variables of the same dimension with a representative variable) to avoid the entire row of data to be ignored for analysis. 
+
+(2) **Standardize variables for distance-based clustering methods**, since scale of the variable (e.g., seconds vs minutes) affects the weight assigned to the variable.
 ```
 #Impute missing data
 library(mice)
@@ -18,7 +20,7 @@ data_cluster = mice::complete(mice(data_cluster,use.matcher=T))
 * Setting the seed is critical for getting consistent results.
 * mice::complete(...): To prevent conflicts, it is best to include the package reference.
 * use.matcher=T: To reproduce the original behavior
-* It is common to treat scale of 1-5 to be numeric, as we have done here.
+* It is common to treat scale of 1-5 to be numeric.
 
 ```
 #Scale
@@ -37,7 +39,7 @@ head(data_cluster[,1:4])
 ### Distance-based methods: 
 Find groups that minimize the distance between members within the group, and maximize the distance between groups. This include **hierarchical, and k-means clustering**
 
-## Model-based methods: 
+### Model-based methods: 
 Don't compute similarity between observations but view data as a mixture of groups
 
 * **Cluster Dendrogram**: Points in the bottom represent more similarity, while larger heights represents the distance of dissimilarity between clusters
