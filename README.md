@@ -17,7 +17,11 @@ You will find some of my work with R, Python langague below. These notebooks cou
 
 3. [TextMining](projects/textMining/textMining.md) : [TF-IDF](projects/textMining/tfidf.md), [Spacy&Vader](projects/textMining/spacyVader.md)
 
-4. Natural Language Processing (NLP)
+4. [AssociationRules](projects/AssociationRules/marketBasket.md)
+
+5. [RecommendationSystem](projects/recommendation/recommendation.md)
+
+6. [NeuralNetwork](projects/neuralNetwork/neuralNetwork.md)
 
 
 ## **Data Modeling**
