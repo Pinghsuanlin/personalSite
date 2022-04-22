@@ -36,6 +36,7 @@ head(data_cluster[,1:4])
 | *Distance Metric* | **To know the dissimilarity between two points**| Include Euclidean distance (This could handle non-numeric variables), Maximum, Manhattan, Canberra, Minkowski
 |*Cluster Method* | **To define how you merge** | Linkage methods: single (minimum distance), complete (maximum distance), average), Variance methods (ward.D2), Centroid methods (median, centroid)
 
+## 4.Apply a clustering technique
 ### Distance-based methods: 
 Find groups that minimize the distance between members within the group, and maximize the distance between groups. This include **hierarchical, and k-means clustering**
 
@@ -44,8 +45,6 @@ Don't compute similarity between observations but view data as a mixture of grou
 
 * **Cluster Dendrogram**: Points in the bottom represent more similarity, while larger heights represents the distance of dissimilarity between clusters
 * **Cophenetic Correlation Coefficient (CPC)**: A goodness of fit statistic for hierarchical clustering to access how well the dendrogram matches the true distance metric. **CPC > 0.7 indicates relatively strong fit**. 0.3 < CPC < 0.7 indicates moderate fit.
-
-## 4.Apply a clustering technique
 
 ## 5.Interpret results to determine number of segments:
 
