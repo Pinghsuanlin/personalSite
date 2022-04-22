@@ -1,5 +1,5 @@
 # Text Mining
-Text Mining = Data Mingin + Natural Language Processing
+Text Mining = Data Mining + Natural Language Processing
 
 ## Sentiment Analysis: 
 
