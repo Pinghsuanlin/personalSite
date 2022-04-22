@@ -56,6 +56,8 @@ To examine the potential bias from outliers, the cluster results with outliers c
 
 ## 7.Profile clusters and evaluate usefulness of resulting segments
 
+
+## Codes:
 ### Hierarchical clustering
 Successively joins neighboring observations or clusters one at a time according to their distances from one another, and continues until all observations are linked
 ```
