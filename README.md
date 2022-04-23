@@ -38,7 +38,8 @@ You will find some of my work with R, Python langague below. These notebooks cou
 2. [DataVisualization](projects/datavisual/dataVisualization.md)
 
 ## **Time Series**
-[TimeSeries](projects/timeSeries/timeSeries.md)
+* [TimeSeries](projects/timeSeries/timeSeries.md): Exponential Smoothing Models, ARIMA
+* [BSTS](projects/BSTS.md)
 
 ## Featured Projects in Python
 * [HistoryOfNobelPrize](projects/NobelPrize/NobelPrize.md)

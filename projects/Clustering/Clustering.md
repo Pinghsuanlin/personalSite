@@ -29,6 +29,8 @@ head(data_cluster[,1:4])
 ```
 * Or we use `caret::preProcess` to standardize the data
 
+* Note that **multiple variables measuring the same dimension should be replaced by the underlying factor or a representive variable**. We could run Factor Analysis or combine correlated variables into a single component based on Principal Component Analysis. 
+
 ## 3.Compute similarity using a metric
 
 |   |Purpose | Categories|
@@ -41,14 +43,20 @@ head(data_cluster[,1:4])
 Find groups that minimize the distance between members within the group, and maximize the distance between groups. This include **hierarchical, and k-means clustering**
 
 ### Model-based methods: 
-Don't compute similarity between observations but view data as a mixture of groups
+Don't compute similarity between observations but view data as a mixture of groups sampled from different distributions
 
-* **Cluster Dendrogram**: Points in the bottom represent more similarity, while larger heights represents the distance of dissimilarity between clusters
-* **Cophenetic Correlation Coefficient (CPC)**: A goodness of fit statistic for hierarchical clustering to access how well the dendrogram matches the true distance metric. **CPC > 0.7 indicates relatively strong fit**. 0.3 < CPC < 0.7 indicates moderate fit.
-
-## 5.Interpret results to determine number of segments:
+## 5.Interpret results to determine number of segments: Examine Dendrogram, Goodness of Fit
 
 This rely on domain knowledge and statistical criterion.
+
+### **Cluster Dendrogram**: 
+Points in the bottom represent more similarity, while larger heights (ie. join later) represents the **distance of dissimilarity** between clusters.
+
+Note that a dendrogram is only accurate when data satisfies the *ultrametric tree inequality*, and this rarely happens in real world data. Therefore, Dendrogram cannot tell you how many clusters you should have.
+
+### **Cophenetic Correlation Coefficient (CPC)**:
+A goodness of fit statistic for hierarchical clustering to access how well the dendrogram matches the true distance metric. **CPC > 0.7 indicates relatively strong fit**. 0.3 < CPC < 0.7 indicates moderate fit.
+
 
 ## 6.Evaluate, eliminate outliers, validate clustering scheme with another sample:
 
@@ -58,8 +66,8 @@ To examine the potential bias from outliers, the cluster results with outliers c
 
 
 ## Codes:
-### Hierarchical clustering
-Successively joins neighboring observations or clusters one at a time according to their distances from one another, and continues until all observations are linked
+### Tecnqiue 1: Hierarchical clustering
+Successively joins neighboring observations or clusters one at a time **according to their distances from one another**, and continues until all observations are linked
 ```
 #Measure similarity by measuring the distance
 d = dist(x = data_cluster,method = 'euclidean') 
@@ -121,18 +129,21 @@ clusplot(data_cluster,
 ```
 ![clusplot](clusplot.PNG)
 
-### k-means
-Arbitrarily placing centroids in the data and then iterating from that point to the final solution, and since it computes a mean deviation, k-means clustering relies on Euclidean distance and only used for numerical data
+### Tecnqiue 2: k-means Clustering
+**Arbitrarily placing centroids in the data and then iterating from that point to the final solution**, and since it computes a mean deviation, k-means clustering relies on **Euclidean distance and only used for numerical data**.
 
-(1) Pick k = number of clusters/ centers with total within sum of squares, or Silhouette Method
+This disorganized approch to clustering produces similar quality of clusters to hierarchical clustering but much faster.
+
+#### Compute similarity: K-means use Euclidean distance
 ```
 set.seed(617)
 #Begin with an arbitrary choice of 3 centers
 km = kmeans(x = data_cluster,centers = 3,iter.max=10000,nstart=25)
 ```
-Interpret Results:
+#### Interpret Results: Determine cluster solutions (k) using Total within sum of sqaures plot, Ratio plot or Sihouette plot
 
 #### **Total within sum of squares plot**
+k (on x-axis), total within sum of squares (on y-axis). Ideal number of clusters is inferred from a sudden change in the line graph (ie. "elbow").
 ```
 within_ss = sapply(1:10,FUN = function(x){
   set.seed(617)
@@ -204,8 +215,10 @@ Silhouette supports a two-cluster solution. But considering two- and three-clust
 
 (5) Repeat the process until there's less movement, then we stop
 
-## Model-based clustering: 
+## Tecnqiue 3: Model-based clustering: 
 Don't compute similarity between observations but view data as a mixture of groups. Observations come from groups with different statistical distributions (such as different means and variances). The algorithms try to find the best set of such underlying distributions to explain the observed data.
+
+### The optimal cluster solution is the one that perform best on BIC (the lower the better) and log.likelihood
 
 mclust() models such clusters as being drawn from a mixture of normal (also known as Gaussian) distributions.
 ```
